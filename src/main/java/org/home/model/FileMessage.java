@@ -2,13 +2,15 @@ package org.home.model;
 
 import java.io.Serializable;
 
-public class Message {
+public class FileMessage implements Serializable {
     private String  key;
     private String body;
+    private boolean messageRead;
 
-    public Message(String key, String body) {
+    public FileMessage(String key, String body) {
         this.key = key;
         this.body = body;
+        this.messageRead = false;
     }
 
     public String getKey() {
