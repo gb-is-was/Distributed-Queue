@@ -10,11 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-@Component("primary")
+//@Component("primary")
 public class SimpleMessageStorageImpl implements MessageStorageInterface {
    // MessageQueue messageQueue;
     Queue<Message> messages;
-    public SimpleMessageStorageImpl()
+    public SimpleMessageStorageImpl(String qname)
     {
         messages = new LinkedList<>();
     }

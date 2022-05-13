@@ -62,7 +62,7 @@ public class MessageQueueController {
 
     public void addMessageToQueue(String qname, Message m) {
         if (this.queueExists(qname) != null) {
-            this.queueExists(qname).getMessageStorageInterface().storeMessage(m);
+            this.queueExists(qname).getMessageStorageInterface().storeMessage( m);
         }
     }
     public Message getNextMessage(String qname)

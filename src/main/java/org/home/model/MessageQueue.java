@@ -1,5 +1,7 @@
 package org.home.model;
 
+import org.home.implementation.FileMessageStorageImpl;
+import org.home.implementation.SimpleFileMessageStorageImpl;
 import org.home.implementation.SimpleMessageStorageImpl;
 import org.home.interfaces.MessageStorageInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ public class MessageQueue {
     private String name;
 
     public MessageQueue(Owner owner, String name) {
-        this.messageStorageInterface = new SimpleMessageStorageImpl();
+        this.messageStorageInterface = new SimpleFileMessageStorageImpl(name);
         this.owner = owner;
         this.name = name;
     }
