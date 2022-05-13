@@ -13,30 +13,34 @@ import java.util.Queue;
 @Component("primary")
 public class SimpleMessageStorageImpl implements MessageStorageInterface {
    // MessageQueue messageQueue;
-    List<Message> messages;
+    Queue<Message> messages;
     public SimpleMessageStorageImpl()
     {
-        messages = new ArrayList<>();
+        messages = new LinkedList<>();
     }
     @Override
-    public void storeMessage(MessageQueue messageQueue, Message message) {
-        //this.messageQueue = messageQueue;
-       // messages.addAll(messageQueue.getAllMessage());
-      //  messages.add(message);
-        Queue<Message> messages = messageQueue.getAllMessage();
+    public void storeMessage(Message message) {
         messages.add(message);
-        messageQueue.setAllMessage(messages);
-
     }
 
     @Override
-    public Message fetchMessage(MessageQueue messageQueue) {
-       // this.messageQueue = messageQueue;
-        //messages.addAll(messageQueue.getAllMessage());
-        Message m = messageQueue.getAllMessage().peek();
-       // Queue<Message> mq = messageQueue.getAllMessage();
-       // mq.poll();
-      //  messageQueue.setAllMessage(mq);
+    public Message fetchMessage() {
+        Message m = messages.peek();
+        messages.remove();
         return m;
+    }
+
+    @Override
+    public ArrayList<Message> getAllMessage() {
+        ArrayList<Message>  returnMessages = new ArrayList<>();
+        returnMessages.addAll(messages);
+        return returnMessages;
+    }
+
+    @Override
+    public void setAllMessage(ArrayList<Message> allMessage) {
+        for(Message m : allMessage) {
+            messages.add(m);
+        }
     }
 }

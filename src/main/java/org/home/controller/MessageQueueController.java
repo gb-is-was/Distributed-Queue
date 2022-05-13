@@ -1,7 +1,6 @@
 package org.home.controller;
 
 import org.apache.log4j.Logger;
-import org.home.implementation.SimpleMessageStorageImpl;
 import org.home.interfaces.MessageStorageInterface;
 import org.home.model.Message;
 import org.home.model.MessageQueue;
@@ -17,10 +16,6 @@ import java.util.Queue;
 @Component
 public class MessageQueueController {
     List<MessageQueue> allQueue;
-
-    @Autowired
-    @Qualifier("primary")
-    MessageStorageInterface messageStorageInterface;
     static final Logger logger = Logger.getLogger(MessageQueueController.class);
     public MessageQueueController()
     {
@@ -67,16 +62,13 @@ public class MessageQueueController {
 
     public void addMessageToQueue(String qname, Message m) {
         if (this.queueExists(qname) != null) {
-            messageStorageInterface.storeMessage(this.queueExists(qname), m);
+            this.queueExists(qname).getMessageStorageInterface().storeMessage(m);
         }
     }
     public Message getNextMessage(String qname)
     {
         MessageQueue mq = this.queueExists(qname);
-        Message m = messageStorageInterface.fetchMessage(mq);
-        Queue<Message> q = mq.getAllMessage();
-        q.poll();
-        mq.setAllMessage(q);
+        Message m = mq.getMessageStorageInterface().fetchMessage();
         return m;
 
     }
