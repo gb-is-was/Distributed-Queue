@@ -1,25 +1,33 @@
 package org.home.model;
 
+import org.home.implementation.SimpleMessageStorageImpl;
+import org.home.interfaces.MessageStorageInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class MessageQueue {
-    private Queue<Message> allMessage;
+   // @Autowired
+    //@Qualifier("primary")
+    MessageStorageInterface messageStorageInterface;
     private Owner owner;
     private String name;
 
     public MessageQueue(Owner owner, String name) {
-        this.allMessage = new LinkedList<>();
+        this.messageStorageInterface = new SimpleMessageStorageImpl();
         this.owner = owner;
         this.name = name;
     }
 
-    public Queue<Message> getAllMessage() {
-        return allMessage;
+    public MessageStorageInterface getMessageStorageInterface() {
+        return messageStorageInterface;
     }
 
-    public void setAllMessage(Queue<Message> allMessage) {
-        this.allMessage = allMessage;
+    public void setMessageStorageInterface(MessageStorageInterface messageStorageInterface) {
+        this.messageStorageInterface = messageStorageInterface;
     }
 
     public Owner getOwner() {
@@ -41,7 +49,6 @@ public class MessageQueue {
     @Override
     public String toString() {
         return "MessageQueue{" +
-                "allMessage=" + allMessage +
                 ", owner=" + owner +
                 ", name='" + name + '\'' +
                 '}';
